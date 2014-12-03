@@ -5,18 +5,18 @@ drawpad = Canvas(width=1360,height=700, background='#BFF5ED')
 #File retrieval (not being used at the moment)
 
 #Background image
-bg = PhotoImage(file = 'C:\Users\e134126\Documents\GitHub\\test\\Game BG.gif')
+bg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Game BG.gif')
 drawpad.create_image(0, 0, image = bg, anchor= NW)
 
 #Player image
-pimg = PhotoImage(file = 'C:\Users\e134126\Documents\GitHub\\test\\Player.gif')
+pimg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Player.gif')
 player = drawpad.create_image(50, 100, image = pimg, anchor= NW)
 
 #Projectile
-blood = drawpad.create_rectangle(400,585,405,590, fill="black")
+blood = drawpad.create_oval(125,150,170,165, fill="red", outline="red")
 
 #Enemy image
-enemy = drawpad.create_rectangle(50,50,100,60, fill="red", outline="red")
+enemy = drawpad.create_rectangle(50,50,100,60, fill="purple", outline="purple")
 
 bloodfired = False
 direction = 5
@@ -58,16 +58,15 @@ class myApp(object):
             drawpad.move(blood, 10, 0)
         if self.collisionDetect() == True:
             drawpad.delete(enemy)
-        if ry2<0:
+        if rx2>1360:
             bloodfired = False
             drawpad.move(blood, (px1-rx1), (py1-ry1))
-        #drawpad.after(10,self.animate)
+        drawpad.after(10,self.animate)
 
     def key(self, event):
         global player
         global drawpad
         global blood
-        print "hello"
         x1,y1 = drawpad.coords(player)
         
         if event.char == " ":
