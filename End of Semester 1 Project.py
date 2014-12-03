@@ -1,18 +1,16 @@
 from Tkinter import *
-drawpad = Canvas(width=1360,height=700, background='#BFF5ED')
-drawpad.pack()
 root = Tk()
+drawpad = Canvas(width=1360,height=700, background='#BFF5ED')
 
 #File retrieval (not being used at the moment)
-dir1 = "C:\Users\Aubrey\Documents\GitHub\End of Semester 1 Project\End-of-Semester-1-Project\\"
 
 #Background image
-bg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Game BG.gif')
+bg = PhotoImage(file = 'C:\Users\e134126\Documents\GitHub\\test\\Game BG.gif')
 drawpad.create_image(0, 0, image = bg, anchor= NW)
 
 #Player image
-player = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Player.gif')
-drawpad.create_image(50, 100, image = player, anchor= NW)
+pimg = PhotoImage(file = 'C:\Users\e134126\Documents\GitHub\\test\\Player.gif')
+player = drawpad.create_image(50, 100, image = pimg, anchor= NW)
 
 #Projectile
 blood = drawpad.create_rectangle(400,585,405,590, fill="black")
@@ -63,12 +61,13 @@ class myApp(object):
         if ry2<0:
             bloodfired = False
             drawpad.move(blood, (px1-rx1), (py1-ry1))
-        drawpad.after(10,self.animate)
+        #drawpad.after(10,self.animate)
 
     def key(self, event):
         global player
         global drawpad
         global blood
+        print "hello"
         x1,y1 = drawpad.coords(player)
         
         if event.char == " ":
@@ -78,7 +77,7 @@ class myApp(object):
                 drawpad.move(player,0,-50)
                 drawpad.move(blood,0,-50)
         elif event.char == "d":
-            if x2<800:
+            if x1+50<800:
                 drawpad.move(player,50,0)
                 drawpad.move(blood,50,0)
         elif event.char == "a":
@@ -86,7 +85,7 @@ class myApp(object):
                 drawpad.move(player,-50,0)
                 drawpad.move(blood,-50,0)
         elif event.char == "s":
-            if y2<600:
+            if y1+100<600:
                 drawpad.move(player,0,50)
                 drawpad.move(blood,0,50)
             
@@ -102,4 +101,4 @@ class myApp(object):
 app = myApp(root)
 
 #For canvas
-mainloop()
+root.mainloop()
