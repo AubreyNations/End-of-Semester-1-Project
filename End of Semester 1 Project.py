@@ -8,12 +8,12 @@ drawpad = Canvas(width=1360,height=700, background='#BFF5ED')
 bg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Game BG.gif')
 drawpad.create_image(0, 0, image = bg, anchor= NW)
 
+#Projectile
+blood = drawpad.create_oval(125,150,165,160, fill="red", outline="red")
+
 #Player image
 pimg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Player.gif')
 player = drawpad.create_image(50, 100, image = pimg, anchor= NW)
-
-#Projectile
-blood = drawpad.create_oval(125,150,170,165, fill="red", outline="red")
 
 #Enemy image
 enemy = drawpad.create_rectangle(50,50,100,60, fill="purple", outline="purple")
@@ -55,7 +55,7 @@ class myApp(object):
         drawpad.move(enemy, direction, 0)
         
         if bloodfired == True:
-            drawpad.move(blood, 10, 0)
+            drawpad.move(blood, 40, 0)
         if self.collisionDetect() == True:
             drawpad.delete(enemy)
         if rx2>1360:
@@ -67,6 +67,7 @@ class myApp(object):
         global player
         global drawpad
         global blood
+        global bloodfired
         x1,y1 = drawpad.coords(player)
         
         if event.char == " ":
