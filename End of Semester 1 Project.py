@@ -16,7 +16,7 @@ pimg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1
 player = drawpad.create_image(50, 100, image = pimg, anchor= NW)
 
 #Enemy image
-enemy = drawpad.create_rectangle(50,50,100,60, fill="purple", outline="purple")
+enemy = drawpad.create_rectangle(0,50,100,80, fill="purple", outline="purple")
 
 bloodfired = False
 direction = 5
@@ -47,6 +47,7 @@ class myApp(object):
         global player
         x1,y1,x2,y2 = drawpad.coords(enemy)
         rx1,ry1,rx2,ry2 = drawpad.coords(blood)
+        px1,py1 = drawpad.coords(player)
 
         if x2 > 800:
             direction = - 5
@@ -55,12 +56,13 @@ class myApp(object):
         drawpad.move(enemy, direction, 0)
         
         if bloodfired == True:
-            drawpad.move(blood, 40, 0)
+            drawpad.move(blood, 50, 0)
         if self.collisionDetect() == True:
             drawpad.delete(enemy)
-        if rx2>1360:
+            drawpad.move(blood, (px1-rx1) + 25, (py1-ry1) + 50)
+        if rx1>1360:
             bloodfired = False
-            drawpad.move(blood, (px1-rx1), (py1-ry1))
+            drawpad.move(blood, (px1-rx1) + 25, (py1-ry1) + 50)  
         drawpad.after(10,self.animate)
 
     def key(self, event):
