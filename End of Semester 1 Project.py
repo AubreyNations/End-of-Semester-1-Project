@@ -105,7 +105,9 @@ class myApp(object):
     def collisionDetect2(self):
         x1,y1 = drawpad.coords(player)
         ex1,ey1 = drawpad.coords(enemy)
-        if (ex1<=x1) and (ey1<=y1):
+        x2 = x1 + 106
+        y2 = y1 +200
+        if (ex1>=x1) and (ex1<=x2) and (ey1<=y1) and (ey1<=y2):
             return True
         else:
             return False
