@@ -2,7 +2,11 @@ from Tkinter import *
 root = Tk()
 drawpad = Canvas(width=1360,height=700, background='#BFF5ED')
 
+import random
+rand1 = random.randint(0,700)
+
 #File retrieval (not being used at the moment)
+
 
 #Background image
 bg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1 Project\\End-of-Semester-1-Project\\Game BG.gif')
@@ -16,12 +20,12 @@ pimg = PhotoImage(file = 'C:\Users\\Aubrey\\Documents\\GitHub\\End of Semester 1
 player = drawpad.create_image(50, 100, image = pimg, anchor= NW)
 
 #Enemy image
-enemy = drawpad.create_rectangle(0,50,100,80, fill="purple", outline="purple")
+enemy = drawpad.create_rectangle(0,rand1,100,rand1 - 20, fill="purple", outline="purple")
 
 bloodfired = False
 direction = 5
 direction1 = 1
-directon2 = -1
+direction2 = 50
 
 class myApp(object):
     def __init__(self, parent):
@@ -32,7 +36,6 @@ class myApp(object):
         self.myContainer1.pack()
         
         self.bloodfired = False
-        # Adding the drawpad, adding the key listener, starting animation
         drawpad.pack()
         root.bind_all('<Key>', self.key)
         self.animate()
@@ -42,31 +45,21 @@ class myApp(object):
     def animate(self):
         global drawpad
         global bloodfired
+        global direction2
         global player
         rx1,ry1,rx2,ry2 = drawpad.coords(blood)
         px1,py1 = drawpad.coords(player)
         
         if bloodfired == True:
-            drawpad.move(blood, 50, 0)
+            drawpad.move(blood, direction2, 0)
         if self.collisionDetect() == True:
             drawpad.delete(enemy)
             drawpad.move(blood, (px1-rx1) - 10, (py1-ry1) + 50)
         if rx1>1360:
             bloodfired = False
-            drawpad.move(blood, (px1-rx1) - 10, (py1-ry1) + 50)  
+            drawpad.move(blood, (px1-rx1) + 20, (py1-ry1) + 50)  
         drawpad.after(10,self.animate)
 
-    def animate1(self): 
-        global direction1
-        global enemy
-        x1, y1, x2, y2 = drawpad.coords(enemy)
-        if x2 > drawpad.winfo_width():
-            direction1 = - 825
-        elif x1 < -5:
-            direction1 = 7
-        drawpad.move(enemy,direction1,0)
-        drawpad.after(10, animate1)    
-    
     def key(self, event):
         global player
         global drawpad
