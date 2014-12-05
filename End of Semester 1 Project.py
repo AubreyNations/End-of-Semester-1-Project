@@ -20,6 +20,7 @@ enemy = drawpad.create_rectangle(0,50,100,80, fill="purple", outline="purple")
 
 bloodfired = False
 direction = 5
+direction1 = 1
 directon2 = -1
 
 class myApp(object):
@@ -40,31 +41,32 @@ class myApp(object):
     
     def animate(self):
         global drawpad
-        global enemy
-        global direction2
-        global direction
         global bloodfired
         global player
-        x1,y1,x2,y2 = drawpad.coords(enemy)
         rx1,ry1,rx2,ry2 = drawpad.coords(blood)
         px1,py1 = drawpad.coords(player)
-
-        if x2 > 800:
-            direction = - 5
-        elif x1 < 0:
-            direction = 5
-        drawpad.move(enemy, direction, 0)
         
         if bloodfired == True:
             drawpad.move(blood, 50, 0)
         if self.collisionDetect() == True:
             drawpad.delete(enemy)
-            drawpad.move(blood, (px1-rx1) + 25, (py1-ry1) + 50)
+            drawpad.move(blood, (px1-rx1) - 10, (py1-ry1) + 50)
         if rx1>1360:
             bloodfired = False
-            drawpad.move(blood, (px1-rx1) + 25, (py1-ry1) + 50)  
+            drawpad.move(blood, (px1-rx1) - 10, (py1-ry1) + 50)  
         drawpad.after(10,self.animate)
 
+    def animate1(self): 
+        global direction1
+        global enemy
+        x1, y1, x2, y2 = drawpad.coords(enemy)
+        if x2 > drawpad.winfo_width():
+            direction1 = - 825
+        elif x1 < -5:
+            direction1 = 7
+        drawpad.move(enemy,direction1,0)
+        drawpad.after(10, animate1)    
+    
     def key(self, event):
         global player
         global drawpad
@@ -100,6 +102,20 @@ class myApp(object):
         else:
             return False
             
+
+def animate1(): 
+    global direction1
+    global enemy
+    x1, y1, x2, y2 = drawpad.coords(enemy)
+    if x2 > drawpad.winfo_width():
+        direction1 = - 825
+    elif x1 < -8:
+        direction1 = 20
+    drawpad.move(enemy,direction1,0)
+    drawpad.after(10, animate1)   
+        
+          
+animate1()   
 app = myApp(root)
 
 #For canvas
